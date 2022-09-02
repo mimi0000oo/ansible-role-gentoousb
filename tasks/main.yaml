@@ -1,0 +1,5 @@
+- name: Download Gentoo ISO
+  include_tasks: download_iso.yaml
+
+- name: Prepare Gentoo USB
+  include_tasks: usb.yaml

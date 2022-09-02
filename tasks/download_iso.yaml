@@ -1,0 +1,14 @@
+- name: Get latest Gentoo ISO
+  shell:
+    cmd: "curl -L https://bouncer.gentoo.org/fetch/root/all/releases/amd64/autobuilds/latest-iso.txt | grep install | awk {'print $1'}"
+  register: gentoo_latest
+
+- name: Download Gentoo ISO
+  get_url:
+    url: "https://bouncer.gentoo.org/fetch/root/all/releases/amd64/autobuilds/{{ gentoo_latest.stdout }}"
+    dest: "{{ role_path }}"
+  
+- name: Rename Gentoo ISO
+  shell:
+    cmd: "mv {{ role_path }}/install-amd64* {{ role_path }}/gentoo.iso"
+    

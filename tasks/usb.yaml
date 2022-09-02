@@ -1,0 +1,12 @@
+- name: Check if user is ready for ISO upload.
+  pause:
+    prompt: "Press any key if you are ready to upload the Gentoo ISO to {{ usb_location }}! WARNING: ALL DATA WILL BE ERASED" 
+
+- name: Prepare USB for uploading ISO
+  shell:
+    cmd: "(echo g; echo n; echo ; echo; echo ; echo ; echo w) | fdisk {{ usb_location }}" 
+
+- name: Upload Gentoo ISO to usb
+  shell:
+    cmd: "dd bs=4M if={{ role_path }}/gentoo.iso of={{ usb_location }} oflag=sync"
+    
